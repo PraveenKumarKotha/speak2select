@@ -55,15 +55,42 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $mail->isHTML(true);
             $mail->Subject = 'Reset Your Password - Speak2Select';
             $mail->Body = "
-                <p>You requested a password reset for <strong>Speak2Select</strong>.</p>
-                <p>Click the link below to reset your password:</p>
-                <p><a href='$reset_link'>Reset Password</a></p>
-                <p>This link will expire in <strong>1 hour</strong>.</p>
-                <p>If you did not request this, please ignore this email.</p>
-            ";
+    <h3>Hello,</h3>
+
+    <p>We received a request to reset the password for your <strong>Speak2Select</strong> account.</p>
+
+    <p>Please click the button below to reset your password.</p>
+
+    <p>
+        <a href='$reset_link'
+        style='background:#28a745;
+               color:#fff;
+               padding:10px 18px;
+               text-decoration:none;
+               border-radius:5px;
+               display:inline-block;
+               font-weight:bold;'>
+            Reset Password
+        </a>
+    </p>
+
+    <p>If the button doesn't work, copy and paste this link into your browser:</p>
+
+    <p>$reset_link</p>
+
+    <br>
+
+    <p>This password reset link will expire in <strong>1 hour</strong>.</p>
+
+    <p>If you did not request a password reset, you can safely ignore this email.</p>
+
+    <br>
+
+    <p>Regards,<br><strong>Speak2Select Team</strong></p>
+";
 
             $mail->send();
-            $success_message = 'Password reset link has been sent. Please check your Inbox or Spam folder.';
+            $success_message = 'A password reset email has been sent. Please check your <span style="color:black;font-weight:600;">Inbox</span> or <span style="color:black;font-weight:600;">Spam</span> folder and follow the instructions to reset your password.';
         } catch (Exception $e) {
             $error_message = "Email could not be sent.";
         }
@@ -181,7 +208,7 @@ button {
     </form>
 
     <?php if ($success_message): ?>
-        <p class="message"><?= htmlspecialchars($success_message) ?></p>
+        <p class="message"><?= $success_message ?></p>
     <?php elseif ($error_message): ?>
         <p class="message error"><?= htmlspecialchars($error_message) ?></p>
     <?php endif; ?>
