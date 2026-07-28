@@ -1,0 +1,11 @@
+# ===============================
+# Speak2Select - Safe Apache Rules
+# ===============================
+
+# Block .env file
+<Files ".env">
+    Require all denied
+</Files>
+
+# Disable directory listing
+Options -Indexes
