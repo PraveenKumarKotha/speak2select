@@ -13,7 +13,7 @@ if (!isset($_SESSION['user_id'])) {
 }
 
 $user_id = $_SESSION['user_id'];
-$amount  = 100;
+$amount  = 99;
 $error = "";
 
 /* ===============================
@@ -40,10 +40,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $utr_number = trim($_POST['utr_number']);
 
     if ($utr_number === '') {
-        $error = "Please enter your UTR number.";
+        $error = "Please enter your Payment Reference.";
     } 
     else if (!preg_match('/^[A-Za-z0-9]{8,22}$/', $utr_number)) {
-        $error = "Invalid UTR format. Please enter the correct UTR from your UPI app.";
+        $error = "Invalid Payment Reference. Enter the UTR, Transaction ID, or Reference Number shown in your UPI app.";
     }
     else {
 
@@ -196,12 +196,20 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 <body>
 
 <div class="box">
-    <h2>🔐 Enter UTR Number</h2>
+    <h2>🔐 Enter Payment Reference</h2>
 
-    <p>After paying ₹100, enter your UPI <strong>UTR number</strong> below.</p>
+    <p>
+    After paying ₹<?= htmlspecialchars($amount) ?>, enter your
+    <strong>Payment Reference</strong> below.
+	</p>
 
     <form method="POST">
-        <input type="text" name="utr_number" placeholder="Enter UTR Number" required>
+        <input
+    type="text"
+    name="utr_number"
+    placeholder="Enter Payment Reference (UTR / Transaction ID / Reference No.)"
+    required
+>
         <button type="submit">Submit</button>
     </form>
 
