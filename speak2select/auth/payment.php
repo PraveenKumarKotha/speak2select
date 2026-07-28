@@ -27,9 +27,9 @@ if ($pendingCount > 0) {
     exit();
 }
 
-$upi_id = "9381182346@axl";
+$upi_id = "speak2selec@ptyes";
 $name   = "Speak2Select";
-$amount = "100";
+$amount = "99";
 $note   = "Speak2Select Subscription";
 
 $upi_string = "upi://pay?pa=$upi_id&pn=$name&am=$amount&cu=INR&tn=" . urlencode($note);
@@ -151,18 +151,42 @@ p {
         One small step today can change your career tomorrow.”
     </p>
 
-    <h3>💰 Amount: ₹100</h3>
+    <h3>💰 Amount: ₹<?= htmlspecialchars($amount) ?></h3>
 
-    <img src="<?= $qr_url ?>" alt="UPI QR Code">
+	<img src="<?= $qr_url ?>" alt="UPI QR Code">
 
-    <p>Scan & Pay ₹100</p>
+	<p>Scan & Pay ₹<?= htmlspecialchars($amount) ?></p>
+	
+	<div style="
+background:#f8f9fa;
+padding:12px;
+border-radius:6px;
+text-align:left;
+font-size:14px;
+margin:15px 0;
+border-left:4px solid #28a745;
+">
+
+<b>Where can I find the Payment Reference?</b><br><br>
+
+📱 <b>PhonePe</b> → UTR Number<br>
+
+📱 <b>Google Pay</b> → UPI Transaction ID<br>
+
+📱 <b>Paytm</b> → UPI Reference Number<br><br>
+
+<small style="color:#666;">
+For the smoothest experience, we recommend paying using <b>PhonePe</b>, <b>Google Pay</b>, or <b>Paytm</b>.
+</small>
+
+</div>    
 
     <form action="payment_request.php" method="post" onsubmit="return validateUTR();">
     <input
         type="text"
         name="utr_number"
         id="utr_number"
-        placeholder="Enter UTR (8–22 characters)"
+        placeholder="Enter Payment Reference"
         required
         minlength="8"
         maxlength="22"
