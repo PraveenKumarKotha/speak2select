@@ -242,7 +242,6 @@ button:disabled { opacity: 0.5; cursor: not-allowed; }
 
 <div class="container">
 <div class="box">
-
 <h2>🎧 Listening and Repeating Practice</h2>
 <h4>Listen. Speak. Succeed.</h4>
 <p>Select → Listen → Record → Auto Feedback → Next</p>
@@ -256,12 +255,134 @@ button:disabled { opacity: 0.5; cursor: not-allowed; }
 
 <div class="voice-wrap">
     <label>Voice</label>
+    <p style="font-size:13px; color:#666; margin-top:8px;">
+    ℹ️ <strong>Note:</strong> Voice quality and gender may vary depending on your device and browser. We are continuously improving the voice experience.
+	</p>
     <select id="voiceType">
         <option value="male">Male</option>
         <option value="female">Female</option>
     </select>
 </div>
+<div style="margin-top:25px;padding:22px;background:linear-gradient(135deg,#eef7ff,#ffffff);border:2px solid #0d6efd;border-radius:14px;text-align:left;font-size:15px;line-height:1.8;box-shadow:0 8px 20px rgba(0,0,0,0.08);">
 
+    <h3 style="margin-top:0;color:#0d6efd;">
+        🚀 Unlock Speak2Select Premium
+    </h3>
+
+    <p>
+        You're currently using the <strong>FREE Version</strong>, which includes only a limited number of practice sentences.
+        Upgrade to Premium and practice without limits.
+    </p>
+
+    <h4 style="margin-bottom:10px;color:#198754;">
+        ⭐ Premium Features
+    </h4>
+
+    <ul style="padding-left:22px;">
+        <li>🎧 1,500+ Listening & Repeating Practice Sentences</li>
+        <li>📈 Small, Medium, Large & Random Practice Levels</li>
+        <li>🔄 Regularly Updated Sentence Library</li>
+        <li>🎯 Improve Listening, Speaking & Pronunciation</li>
+        <li>💼 Build Confidence for Placements & Interviews</li>
+        <li>📱 Access Anytime on Mobile & Desktop</li>
+    </ul>
+
+    <div style="margin:20px 0;padding:18px;background:#fff3cd;border-left:6px solid #ffc107;border-radius:10px;">
+
+        <div style="font-size:20px;font-weight:bold;color:#dc3545;">
+            🎉 Founder's Launch Offer
+        </div>
+
+        <div style="margin-top:10px;">
+
+            <span style="text-decoration:line-through;color:#777;font-size:18px;">
+                ₹299/year
+            </span>
+
+            <span style="font-size:30px;color:#198754;font-weight:bold;margin-left:12px;">
+                ₹99/year
+            </span>
+
+        </div>
+
+        <p style="margin-top:12px;font-size:16px;font-weight:bold;color:#0d6efd;">
+            🎁 Exclusive for the <span style="color:#dc3545;">First 100 Students</span>
+        </p>
+
+        <p style="margin:0;color:#555;">
+            One-time payment • 1 Year Access • No Monthly Charges
+        </p>
+
+    </div>
+
+    <table style="width:100%;border-collapse:collapse;margin-top:18px;">
+        <tr style="background:#0d6efd;color:white;">
+            <th style="padding:10px;">Feature</th>
+            <th>Free</th>
+            <th>Premium</th>
+        </tr>
+
+        <tr>
+            <td style="padding:8px;">Practice Sentences</td>
+            <td>15</td>
+            <td>1500+</td>
+        </tr>
+
+        <tr style="background:#f8f9fa;">
+            <td style="padding:8px;">Practice Levels</td>
+            <td>Limited</td>
+            <td>All Levels</td>
+        </tr>
+
+        <tr>
+            <td style="padding:8px;">Regular Updates</td>
+            <td>❌</td>
+            <td>✅</td>
+        </tr>
+
+        <tr style="background:#f8f9fa;">
+            <td style="padding:8px;">Unlimited Practice</td>
+            <td>❌</td>
+            <td>✅</td>
+        </tr>
+
+        <tr>
+            <td style="padding:8px;">New Sentences</td>
+            <td>❌</td>
+            <td>✅</td>
+        </tr>
+
+
+    </table>
+
+    <div style="margin-top:25px;text-align:center;">
+
+        <a href="https://speak2select.free.nf/"
+           target="_blank"
+           style="display:inline-block;background:#198754;color:white;text-decoration:none;padding:15px 32px;border-radius:10px;font-size:17px;font-weight:bold;box-shadow:0 5px 12px rgba(25,135,84,.3);">
+
+            🎁 Claim My ₹99 Offer
+
+        </a>
+
+        <p style="margin-top:15px;color:#555;font-size:14px;">
+    		Click the button above to access Speak2Select Premium instantly.
+		</p>
+		
+       	<p style="margin-top:15px;color:#555;font-size:14px;">
+Need help with payment, registration, or have any questions?
+</p>
+
+<a href="https://forms.gle/2fF5zX9EXMoen1TZ7"
+   target="_blank"
+   style="display:inline-block;background:#0d6efd;color:white;text-decoration:none;padding:10px 22px;border-radius:8px;font-weight:bold;">
+    📝 Fill Support Form
+</a>
+                                
+                                
+    </div>
+
+</div>
 <div>
     <button id="listenBtn" class="listen" onclick="playSentence()" disabled>🔊 Listen</button>
     <button id="recordBtn" class="record" onclick="startRecording()" disabled>🎤 Record</button>
