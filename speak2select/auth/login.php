@@ -21,7 +21,7 @@ if (isset($_POST['login'])) {
 
         // 1️⃣ Email verification check
         if ($user['email_verified'] != 1) {
-            $error_message = "Please verify your email before logging in.";
+            $error_message = 'A verification email has already been sent to your email address. Please check your <span style="color:black;font-weight:600;">Inbox</span> or <span style="color:black;font-weight:600;">Spam</span> folder and verify your email before logging in.';
         } 
         else {
 
@@ -271,8 +271,8 @@ button {
     </form>
 
     <?php if (isset($error_message)): ?>
-        <p class="error-message"><?= htmlspecialchars($error_message); ?></p>
-    <?php endif; ?>
+    <p class="error-message"><?= $error_message; ?></p>
+	<?php endif; ?>
 
 <div class="auth-links">
     <p class="cta-text">
