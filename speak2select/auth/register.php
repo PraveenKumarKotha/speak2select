@@ -5,6 +5,7 @@ if (!defined('APP_ACCESS')) {
     http_response_code(403);
     exit('Forbidden');
 }
+
 require '../includes/phpmailer/PHPMailer.php';
 require '../includes/phpmailer/SMTP.php';
 require '../includes/phpmailer/Exception.php';
@@ -12,23 +13,37 @@ require '../includes/phpmailer/Exception.php';
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 
+// Show success message after redirect
+if (isset($_GET['success'])) {
+    $success_message = 'A verification email has been sent. Please check your <span style="color:black;font-weight:600;">Inbox</span> or <span style="color:black;font-weight:600;">Spam</span> folder and verify your email.';
+}
+
 if (isset($_POST['register'])) {
 
-    $name  = trim($_POST['username']);
+    $name = trim($_POST['username']);
     $email = trim($_POST['email']);
     $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
     $token = bin2hex(random_bytes(16));
 
-    $stmt = $conn->prepare("SELECT id FROM users WHERE email = ?");
+    // Check if email already exists
+    $stmt = $conn->prepare("SELECT email_verified FROM users WHERE email = ?");
     $stmt->execute([$email]);
 
-    if ($stmt->rowCount() > 0) {
-        $error_message = "Email is already registered!";
+    $user = $stmt->fetch(PDO::FETCH_ASSOC);
+
+    if ($user) {
+
+        if ($user['email_verified'] == 0) {
+            $error_message = "This email is already registered. Please check your Inbox or Spam folder and verify your email first.";
+        } else {
+            $error_message = "Email is already registered!";
+        }
+
     } else {
 
         $stmt = $conn->prepare("
-            INSERT INTO users 
-            (name, email, password, email_verified, payment_status, access_expiry_date, token) 
+            INSERT INTO users
+            (name, email, password, email_verified, payment_status, access_expiry_date, token)
             VALUES (?, ?, ?, 0, 'PENDING', NULL, ?)
         ");
 
@@ -37,39 +52,58 @@ if (isset($_POST['register'])) {
         $mail = new PHPMailer(true);
 
         try {
-            $mail->isSMTP();
-            $mail->Host       = 'smtp.gmail.com';
-            $mail->SMTPAuth   = true;
-            $mail->Username   = MAIL_USER;
-            $mail->Password   = MAIL_PASS;
 
+            $mail->isSMTP();
+            $mail->Host = 'smtp.gmail.com';
+            $mail->SMTPAuth = true;
+            $mail->Username = MAIL_USER;
+            $mail->Password = MAIL_PASS;
             $mail->SMTPSecure = 'tls';
-            $mail->Port       = 587;
+            $mail->Port = 587;
 
             $mail->setFrom('speak2select@gmail.com', 'Speak2Select');
             $mail->addAddress($email, $name);
 
             $mail->isHTML(true);
             $mail->Subject = 'Verify Your Email - Speak2Select';
+
             $mail->Body = "
-                <h3>Hello $name,</h3>
+                <h3>Hello {$name},</h3>
+
                 <p>Welcome to <strong>Speak2Select</strong>.</p>
-                <p>Please verify your email address:</p>
+
+                <p>Please verify your email address by clicking the button below.</p>
+
                 <p>
-                    <a href='" . APP_URL . "/auth/verify.php?email=$email&token=$token'>
+                    <a href='" . APP_URL . "/auth/verify.php?email=" . urlencode($email) . "&token=$token'
+                    style='background:#28a745;color:#fff;padding:10px 18px;text-decoration:none;border-radius:5px;'>
                         Verify Email
                     </a>
                 </p>
-                <p>Regards,<br>Speak2Select Team</p>
+
+                <p>If the button doesn't work, copy and paste this link into your browser:</p>
+
+                <p>" . APP_URL . "/auth/verify.php?email=" . urlencode($email) . "&token=$token</p>
+
+                <br>
+
+                <p>Regards,<br><strong>Speak2Select Team</strong></p>
             ";
 
             $mail->send();
-            $success_message = 'A verification email has been sent. Please check your <span style="color:black; font-weight:600;">Inbox</span> or <span style="color:black; font-weight:600;">Spam</span> folder.';
+
+            // Redirect to prevent duplicate form submission
+            header("Location: register.php?success=1");
+            exit();
 
         } catch (Exception $e) {
-            $error_message = "Email could not be sent.";
+
+            $error_message = "Email could not be sent. Please try again.";
+
         }
+
     }
+
 }
 ?>
 <!DOCTYPE html>
